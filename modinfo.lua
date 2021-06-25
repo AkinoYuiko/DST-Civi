@@ -1,4 +1,4 @@
-version = "5.25.1"
+version = "5.26"
 -- basic info --
 name = locale == "zh" and "光暗魔法使" or "Civi"
 author = locale == "zh" and "丁香女子学校" or "Civi, Potter_Lee, kengyou_lei"
@@ -36,7 +36,7 @@ priority = 18
 mod_dependencies = {
     {
         workshop = "workshop-2521851770",    -- Glassic API
-        ["DST-GlassicAPI"] = false,
+        ["GlassicAPI"] = false,
         ["[API] Glassic API - DEV"] = true
     },
 }
