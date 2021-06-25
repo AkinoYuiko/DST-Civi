@@ -1,18 +1,18 @@
 local assets =
 {
-    Asset("ANIM", "anim/glowingbackpack.zip"),
-    Asset("ANIM", "anim/ui_backpack_2x4.zip"),
+    Asset("ANIM", "anim/glowingbackpack.zip"), 
+    Asset("ANIM", "anim/ui_backpack_2x4.zip"), 
 }
 
 -- function RED --
 local function IsValidVictim(victim)
     return not (victim:HasTag("veggie") or
-        victim:HasTag("structure") or
-        victim:HasTag("wall") or
-        victim:HasTag("balloon") or
-        victim:HasTag("soulless") or
-        victim:HasTag("groundspike") or
-        victim:HasTag("smashable"))
+            victim:HasTag("structure") or
+            victim:HasTag("wall") or
+            victim:HasTag("balloon") or
+            victim:HasTag("soulless") or
+            victim:HasTag("groundspike") or
+            victim:HasTag("smashable"))
     and (  (victim.components.combat ~= nil and victim.components.health ~= nil)
         or victim.components.murderable ~= nil )
 end
@@ -103,12 +103,12 @@ end
 
 -- function ORANGE --
 local function autorefuel(inst, owner)
-    if not owner then return end
+    if owner == nil then return end
 
-    local eslots = owner.components.inventory and owner.components.inventory.equipslots
+    local eq = owner.components.inventory and owner.components.inventory.equipslots or nil
 
-    if eslots and inst.components.equippable:IsEquipped() then
-        for k1, v1 in pairs(eslots) do
+    if eq ~= nil and inst.components.equippable:IsEquipped() then
+        for k1, v1 in pairs(eq) do
             if v1.components.finiteuses and v1.prefab == "blacklotus" then
                 local _u = v1.components.finiteuses
                 local _i = owner.components.inventory
@@ -152,79 +152,69 @@ local function autorefuel(inst, owner)
     end
 end
 
--- local function ApplyGreen(inst,owner)
---     local slots = inst.components.container and inst.components.container.slots or nil
---     local isopen = inst.components.container and inst.components.container:IsOpen()
---     local newpack = SpawnPrefab("nightback")
---     newpack.state_time=inst.state_time
---     if owner and owner.components.inventory ~= nil then
---         owner.components.inventory:Unequip(EQUIPSLOTS.BODY)
---         owner.components.inventory:Equip(newpack)
---         if isopen == false then
---             newpack.replica.container:Close()
---         end
---     else
---         newpack.Transform:SetPosition(inst.Transform:GetWorldPosition())
---     end
---     for k,v in pairs(slots) do
---         if newpack.components.container then
---             newpack.components.container:GiveItem(v,k)
---         end
---     end
---     inst:Remove()
--- end
+-- function GREEN --
+local function ApplyGreen(inst, owner)
+    local slots = inst.components.container and inst.components.container.slots or nil
+    local isopen = inst.components.container and inst.components.container:IsOpen()
+    local eslot = inst.components.equippable and inst.components.equippable.equipslot
+    local newpack = SpawnPrefab("nightback")
+    newpack.state_time=inst.state_time
+    if owner and owner.components.inventory then
+        owner.components.inventory:Unequip(eslot)
+        owner.components.inventory:Equip(newpack)
+        if isopen==false then
+            newpack.replica.container:Close()
+        end
+    else
+        newpack.Transform:SetPosition(inst.Transform:GetWorldPosition())
+    end
+    for k, v in pairs(slots) do
+        if newpack.components.container then
+            newpack.components.container:GiveItem(v, k)
+        end
+    end
+    inst:Remove()
+end
 
 local function ApplyState(inst, state)
-    if state then
-        local owner = inst.components.inventoryitem and inst.components.inventoryitem.owner
-        if inst.components.inventoryitem then
-            inst.components.inventoryitem:ChangeImageName(state ~= "fuel" and "nightpack_"..state.."" or "nightpack")
-            inst.MiniMapEntity:SetIcon(state ~= "fuel" and "nightpack_"..state..".tex" or "nightpack.tex")
+    if state and inst.components.inventoryitem then
+        inst.components.inventoryitem:ChangeImageName("nightpack_"..state)
+        -- inst.MiniMapEntity:SetIcon(state ~= "fuel" and "nightpack_"..state..".tex" or "nightpack.tex") -- P.S. Tony 没做图片
+    end
+    local owner = inst.components.inventoryitem and inst.components.inventoryitem.owner or nil
+    if state == "red" then
+        if owner then ActivateListen(inst, owner) end
+    elseif state == "blue" then
+        if not inst:HasTag("fridge") then inst:AddTag("fridge") end
+        if not inst:HasTag("nocool") then inst:AddTag("nocool") end
+    elseif state == "purple" then
+        if inst.components.equippable then inst.components.equippable.dapperness = TUNING.DAPPERNESS_LARGE end
+    elseif state == "yellow" then
+        if inst.components.waterproofer then inst.components.waterproofer:SetEffectiveness(1) end
+    elseif state == "orange" then
+        if owner ~= nil then autorefuel(inst, owner) end
+    elseif state == "green" and inst.prefab == "nightpack" then
+        ApplyGreen(inst, owner)
+    elseif state == "opal" then
+        if not inst:HasTag("fridge") then inst:AddTag("fridge") end
+        if inst:HasTag("nocool") then inst:RemoveTag("nocool") end
+    elseif state == "dark" then
+        if owner and owner.components.combat ~= nil then
+            owner.components.combat.externaldamagemultipliers:SetModifier(inst, 1.2, "nightpack")
         end
-        if state == "red" then
-            if owner then ActivateListen(inst, owner) end
-        elseif state == "blue" then
-            if not inst:HasTag("fridge") then inst:AddTag("fridge") end
-            if not inst:HasTag("nocool") then inst:AddTag("nocool") end
-        elseif state == "purple" then
-            if inst.components.equippable then inst.components.equippable.dapperness = TUNING.DAPPERNESS_LARGE end
-        elseif state == "yellow" then
-            if inst.components.waterproofer then inst.components.waterproofer:SetEffectiveness(1) end
-        elseif state == "orange" then
-            if owner then autorefuel(inst, owner) end
-        elseif state == "green" then
-            inst.components.container:WidgetSetup("krampus_sack")
-            inst.is_greenpack:set(true)
-            if owner then
-                local isopen = inst.components.container and inst.components.container:IsOpen()
-                inst.components.container:Close()
-                if isopen then
-                    inst:DoTaskInTime(0, function(inst)
-                        inst.components.container:Open(owner)
-                    end)
-                end
-            end
-        elseif state == "opal" then
-            if not inst:HasTag("fridge") then inst:AddTag("fridge") end
-            if inst:HasTag("nocool") then inst:RemoveTag("nocool") end
-        elseif state == "dark" then
-            if owner and owner.components.combat then
-                owner.components.combat.externaldamagemultipliers:SetModifier(inst, 1.2, "nightpack")
-            end
-        elseif state == "light" then
-            if inst._light == nil or not inst._light:IsValid() then
-                inst._light = SpawnPrefab("lanternlight")
-                -- end
-            end
-            if inst._light ~= nil or inst._light:IsValid() then
-                inst._light.Light:SetIntensity(0.5)
-                inst._light.Light:SetRadius(3)
-                inst._light.Light:SetFalloff(0.7)
-                if owner ~= nil then
-                    inst._light.entity:SetParent(owner.entity)
-                else
-                    inst._light.entity:SetParent(inst.entity)
-                end
+    elseif state == "light" then
+        if inst._light == nil or not inst._light:IsValid() then
+            inst._light = SpawnPrefab("lanternlight")
+            -- end
+        end
+        if inst._light ~= nil or inst._light:IsValid() then
+            inst._light.Light:SetIntensity(.5)
+            inst._light.Light:SetRadius(3)
+            inst._light.Light:SetFalloff(.7)
+            if owner ~= nil then
+                inst._light.entity:SetParent(owner.entity)
+            else
+                inst._light.entity:SetParent(inst.entity)
             end
         end
     end
@@ -232,9 +222,10 @@ end
 
 local function RenewState(inst, gemtype, isdummy)
     local owner = inst.components.inventoryitem and inst.components.inventoryitem.owner or nil
-    if owner then RemoveListen(inst, owner) end
+    -- healing --
+    RemoveListen(inst, owner)
     -- dark --
-    if owner and owner.components.combat then
+    if owner and owner.components.combat ~= nil then
         owner.components.combat.externaldamagemultipliers:RemoveModifier(inst, "nightpack")
     end
     -- light
@@ -250,22 +241,20 @@ local function RenewState(inst, gemtype, isdummy)
         inst.state_task = nil
     end
     -- <renew pack> --
-    local slots = inst.components.container and inst.components.container.slots
+    local slots = inst.components.container and inst.components.container.slots or nil
     local isopen = inst.components.container and inst.components.container:IsOpen()
-    local eslot = inst.components.equippable and inst.components.equippable.equipslot
     local newpack = SpawnPrefab("nightpack")
-
-    if owner and owner.components.inventory then
-        owner.components.inventory:Unequip(eslot)
-        owner.components.inventory:Equip(newpack)
-        if isopen == false then
-            print("isopen = "..isopen)
-            newpack.components.container:Close()
+    if owner ~= nil then
+        if owner.components.inventory ~= nil then
+            owner.components.inventory:Unequip(EQUIPSLOTS.BODY)
+            owner.components.inventory:Equip(newpack)
+            if isopen==false then
+                newpack.replica.container:Close()
+            end
         end
     else
         newpack.Transform:SetPosition(inst.Transform:GetWorldPosition())
     end
-
     for k, v in pairs(slots) do
         if k <= 8 and newpack.components.container then
             newpack.components.container:GiveItem(v, k)
@@ -283,6 +272,17 @@ local function RenewState(inst, gemtype, isdummy)
     end
 end
 
+local function onupdate(inst, dt)
+    inst.state_time = inst.state_time - dt
+    if inst.state_time <= 0 then
+        inst.state_time = 0
+        -- <MAIN FUNCTION> --
+        RenewState(inst)
+    else
+        -- <MAIN FUNCTION> --
+        -- ApplyState(inst, inst._state)
+    end
+end
 
 local function onfuelupdate(inst)
     local owner = inst.components.inventoryitem.owner or nil
@@ -312,6 +312,17 @@ local function onfuelupdate(inst)
     end
 end
 
+local function OnLongUpdate(inst, dt)
+    if inst.state_time then inst.state_time = math.max(0, inst.state_time - dt) end
+    if inst._state ~= nil then
+        if inst._state ~= "fuel" then
+            onupdate(inst, 0)
+        else
+            onfuelupdate(inst)
+        end
+    end
+end
+
 local function InitFuelState(inst)
     if inst.components.fueled == nil then
         inst:AddComponent("fueled")
@@ -325,18 +336,36 @@ local function InitFuelState(inst)
     end
 end
 
-local function OnStateChange(inst, state, duration)
+local function OnChangeState(inst, state, duration)
     inst._state = state
-    if inst._state ~= "fuel" then
-        inst.components.timer:StopTimer("state_change")
-        inst.components.timer:StartTimer("state_change", duration)
-        ApplyState(inst, inst._state)
-    else
-        inst:AddTag("nofuelsocket")
-        InitFuelState(inst)
-        ApplyState(inst, inst._state)
+    inst.state_time = duration or 0
+    if inst.state_task == nil then
+        if inst._state ~= "fuel" then
+            inst.state_task = inst:DoPeriodicTask(1, onupdate, nil, 1)
+            -- onupdate(inst, 0)
+            ApplyState(inst, inst._state)
+        else
+    		inst:AddTag("nofuelsocket")
+            InitFuelState(inst)
+            inst.state_task = inst:DoPeriodicTask(1, onfuelupdate, nil, 1)
+            -- onfuelupdate(inst)
+            ApplyState(inst, inst._state)
+        end
     end
+
 end
+
+local gemtype_time_table = {
+    red = 480,
+    dark = 480,
+    purple = 1200,
+    light = 1200,
+    blue = 2400,
+    yellow = 3000,
+    orange = 3000,
+    green = 7200,
+    opal = 7200,
+}
 
 local function OnGemTrade(inst, gemtype, isdummy)
     if inst._state ~= nil and inst._state ~= gemtype then
@@ -357,17 +386,9 @@ local function OnGemTrade(inst, gemtype, isdummy)
     local dummymult = isdummy and 1.2 or 1
 
     if gemtype == "fuel" then
-        OnStateChange(inst, gemtype)
-    elseif gemtype == "red" or gemtype == "dark" then
-        OnStateChange(inst, gemtype, 480 * dummymult)
-    elseif gemtype == "purple" or gemtype == "light" then
-        OnStateChange(inst, gemtype, 1200 * dummymult)
-    elseif gemtype == "blue" then
-        OnStateChange(inst, gemtype, 2400 * dummymult)
-    elseif gemtype == "yellow" or gemtype == "orange" then
-        OnStateChange(inst, gemtype, 3000 * dummymult)
-    elseif gemtype == "green" or gemtype == "opal" then
-        OnStateChange(inst, gemtype, 7200 * dummymult)
+        OnChangeState(inst, gemtype)
+    else
+        OnChangeState(inst, gemtype, gemtype_time_table[gemtype] * dummymult)
     end
 end
 
@@ -405,6 +426,12 @@ local function onunequip(inst, owner)
     end
 end
 
+local function ondropped(inst)
+    if inst._state == "fuel" then
+        onfuelupdate(inst)
+    end
+end
+
 local function OnRemove(inst)
     if inst._light ~= nil then
         inst._light:Remove()
@@ -414,26 +441,91 @@ local function OnRemove(inst)
     end
 end
 
+local function OnPreLoad(inst, data)
+    if data ~= nil and data._state ~= nil and data.state_time ~= nil then 
+        OnChangeState(inst, data._state, data.state_time)
+    end
+end
+
+local function OnSave(inst, data)
+    data._state = inst._state or nil
+    data.state_time = inst.state_time or nil
+    data.fuel_percent = inst.components.fueled and inst.components.fueled:GetPercent() or nil
+end
+
 local function toberemoved(inst)
     if inst.components.container then inst.components.container:DropEverything() end
     OnRemove(inst)
     inst:Remove()
 end
 
-local function OnSave(inst, data)
-    data._state = inst._state or nil
-    data.fuel_percent = inst.components.fueled and inst.components.fueled:GetPercent() or nil
-end
+local function fn_green()
+    local inst = CreateEntity()
 
-local function OnLoad(inst, data)
-    if data ~= nil and data._state then
-        inst._state = data._state
-        if data._state == "fuel" and data.fuel_percent ~= nil then
-            InitFuelState(inst)
-            inst.components.fueled:SetPercent(data.fuel_percent)
+    inst.entity:AddTransform()
+    inst.entity:AddAnimState()
+    inst.entity:AddSoundEmitter()
+    inst.entity:AddMiniMapEntity()
+    inst.entity:AddNetwork()
+
+    MakeInventoryPhysics(inst)
+
+    inst.AnimState:SetBank("glowingbackpack")
+    inst.AnimState:SetBuild("glowingbackpack")
+    inst.AnimState:PlayAnimation("anim")
+
+    inst:AddTag("backpack")
+    inst:AddTag("waterproofer")
+
+    inst.MiniMapEntity:SetIcon("nightpack.tex")
+
+    inst.foleysound = "dontstarve/movement/foley/backpack"
+
+    MakeInventoryFloatable(inst, "small", 0.3, .7)
+
+    inst.entity:SetPristine()
+
+    if not TheWorld.ismastersim then
+        inst.OnEntityReplicated = function(inst)
+            inst.replica.container:WidgetSetup("krampus_sack")
         end
-        ApplyState(inst, data._state)
+        return inst
     end
+
+    inst._light = nil
+    inst._state = nil
+    inst.state_time = 0
+
+    inst:AddComponent("inspectable")
+
+    inst:AddComponent("inventoryitem")
+    inst.components.inventoryitem.cangoincontainer = false
+
+    inst:AddComponent("waterproofer")
+    inst.components.waterproofer:SetEffectiveness(0)
+
+    inst:AddComponent("equippable")
+    inst.components.equippable.equipslot = EQUIPSLOTS.BODY
+    inst.components.equippable:SetOnEquip(onequip)
+    inst.components.equippable:SetOnUnequip(onunequip)
+
+    inst:AddComponent("container")
+    inst.components.container:WidgetSetup("krampus_sack")
+
+    MakeHauntableLaunchAndDropFirstItem(inst)
+
+    inst.OnGemTrade = OnGemTrade
+    inst.RenewState = RenewState
+
+    inst.OnSave = OnSave
+    inst.OnPreLoad = OnPreLoad
+    inst.OnRemoveEntity = OnRemove
+    inst.OnLongUpdate = OnLongUpdate
+
+    OnChangeState(inst, "green", 1)
+    if TUNING.GEARPLAN ~= 1 then inst:DoTaskInTime(0, toberemoved) end
+
+    return inst
 end
 
 local function fn()
@@ -458,21 +550,12 @@ local function fn()
 
     inst.foleysound = "dontstarve/movement/foley/backpack"
 
-    MakeInventoryFloatable(inst, "small", 0.3, 0.7)
+    MakeInventoryFloatable(inst, "small", 0.3, .7)
 
     inst.entity:SetPristine()
 
-    inst.is_greenpack = net_bool(inst.GUID, "is_greenpack")
-
     if not TheWorld.ismastersim then
         inst.OnEntityReplicated = function(inst)
-            local AttachClassified = inst.replica.container.AttachClassified
-            inst.replica.container.AttachClassified = function(self, ...)
-                if inst.is_greenpack:value() then
-                    self:WidgetSetup("krampus_sack")
-                end
-                return AttachClassified(self, ...)
-            end
             inst.replica.container:WidgetSetup("backpack")
         end
         return inst
@@ -480,16 +563,13 @@ local function fn()
 
     inst._light = nil
     inst._state = nil
+    inst.state_time = nil
 
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.cangoincontainer = false
-    inst.components.inventoryitem:SetOnDroppedFn(function(inst)
-        if inst._state == "fuel" then
-            onfuelupdate(inst)
-        end
-    end)
+    inst.components.inventoryitem:SetOnDroppedFn(ondropped)
 
     inst:AddComponent("waterproofer")
     inst.components.waterproofer:SetEffectiveness(0)
@@ -502,21 +582,21 @@ local function fn()
     inst:AddComponent("container")
     inst.components.container:WidgetSetup("backpack")
 
-    inst:AddComponent("timer")
-    inst:ListenForEvent("timerdone", function(inst) RenewState(inst) end)
-
     MakeHauntableLaunchAndDropFirstItem(inst)
 
     inst.OnGemTrade = OnGemTrade
     inst.RenewState = RenewState
 
     inst.OnSave = OnSave
-    inst.OnLoad = OnLoad
+    inst.OnPreLoad = OnPreLoad
     inst.OnRemoveEntity = OnRemove
+    inst.OnLongUpdate = OnLongUpdate
 
     if TUNING.GEARPLAN ~= 1 then inst:DoTaskInTime(0, toberemoved) end
 
+    -- inst:DoTaskIn
     return inst
 end
 
-return Prefab("nightpack", fn, assets)
+return Prefab("nightpack", fn, assets, prefabs), 
+       Prefab("nightback", fn_green, assets, prefabs)
