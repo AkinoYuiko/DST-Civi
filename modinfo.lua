@@ -1,10 +1,10 @@
-version = "5.26.1"
+version = "5.27.1"
 -- basic info --
 name = locale == "zh" and "光暗魔法使" or "Civi"
 author = locale == "zh" and "丁香女子学校" or "Civi, Potter_Lee, kengyou_lei"
 description = locale == "zh" and "[版本: "..version..[[]
 
-更新内容: 修复立绘显示问题.
+更新内容: 更新影背包代码.
 
 * 通过吃黑/白宝石升/降级. 
 
@@ -13,7 +13,7 @@ description = locale == "zh" and "[版本: "..version..[[]
 *** 请仔细看模组选项! ***
 ]] or "[Version: "..version..[[]
 
-Changelog: Fixed bigportraits display issue.
+Changelog: Update Night Backpack's script.
 
 * Upgrades/Degrades by eating Dark/Light Gems.
 

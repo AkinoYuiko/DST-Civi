@@ -49,12 +49,9 @@ local pack_table = {
 function SetupActionGemTrading(inst, doer, target, actions, right)
     if target.prefab == "nightpack" and target:HasTag("nofuelsocket") and inst.prefab == "nightmarefuel" then return end
     if doer.replica.rider:IsRiding() and table.contains(pack_table, target.prefab) and target.components.inventoryitem and target.components.inventoryitem.owner ~= doer then return end 
-    if table.contains(pack_table, target.prefab) then
+    if right and table.contains(pack_table, target.prefab) then
         table.insert(actions, 1, ACTIONS.GEMTRADE)
     end
-    
-
-
 end
 
 AddComponentAction("USEITEM","nightgem",SetupActionGemTrading)
