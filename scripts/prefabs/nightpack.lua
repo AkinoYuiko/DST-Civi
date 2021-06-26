@@ -1,24 +1,28 @@
-local assets =
-{
-    Asset("ANIM", "anim/nightpack.zip"),
-    -- Asset("ANIM", "anim/ui_backpack_2x4.zip"),
---     Asset("ANIM", "anim/ui_krampusbag_2x5.zip"),
+local assets = {
+    pack =  {
+        Asset("ANIM", "anim/nightpack.zip"),
+        Asset("ANIM", "anim/ui_backpack_2x4.zip"),
+    },
+
+    green = {
+        Asset("ANIM", "anim/nightpack.zip"),
+        Asset("ANIM", "anim/ui_krampusbag_2x5.zip"),
+    }
 }
 
--- local assets_green =
--- {
---     Asset("ANIM", "anim/nightpack.zip"),
--- }
-
--- local prefabs = {
---     "nightback",
---     "lanternlight"
--- }
-
--- local prefabs_green = {
---     "nightpack",
---     "lanternlight"
--- }
+local prefabs = {
+    pack = {
+        "nightback",
+        "lanternlight",
+        "shadow_puff",
+        "pandorachest_reset"
+    },
+    green = {
+        "nightpack",
+        "lanternlight",
+        "pandorachest_reset"
+    }
+}
 
 -- function RED --
 local function IsValidVictim(victim)
@@ -32,7 +36,6 @@ local function IsValidVictim(victim)
     and (  (victim.components.combat ~= nil and victim.components.health ~= nil)
         or victim.components.murderable ~= nil )
 end
-
 
 local function OnHealing(inst, data)
     local victim = data.inst
@@ -118,55 +121,50 @@ local function ActivateListen(inst, owner)
 end
 
 -- function ORANGE --
-local function autorefuel(inst, owner)
-    if owner == nil then return end
-
-    local function find_fn(prefab)
-        return function(item)
-            return item.prefab == prefab
-        end
+local ORANGE_PICKUP_MUST_TAGS = { "_inventoryitem" }
+local ORANGE_PICKUP_CANT_TAGS = { "INLIMBO", "NOCLICK", "knockbackdelayinteraction", "catchable", "fire", "minesprung", "mineactive" }
+local function pickup(inst, owner)
+    if owner == nil or owner.components.inventory == nil then
+        return
     end
+    local x, y, z = owner.Transform:GetWorldPosition()
+    local ents = TheSim:FindEntities(x, y, z, TUNING.ORANGEAMULET_RANGE, ORANGE_PICKUP_MUST_TAGS, ORANGE_PICKUP_CANT_TAGS)
+    local ba = owner:GetBufferedAction()
+    for i, v in ipairs(ents) do
+        if v.components.inventoryitem ~= nil and
+            v.components.inventoryitem.canbepickedup and
+            v.components.inventoryitem.cangoincontainer and
+            not v.components.inventoryitem:IsHeld() and
+            owner.components.inventory:CanAcceptCount(v, 1) > 0 and
+            (ba == nil or ba.action ~= ACTIONS.PICKUP or ba.target ~= v) then
 
-    local eslots = owner.components.inventory and owner.components.inventory.equipslots
-
-    if eslots and inst.components.equippable:IsEquipped() then
-        for _, eprefab in ipairs(eslots) do
-            if eprefab.components.finiteuses and eprefab.prefab == "blacklotus" then
-                local uses = eprefab.components.finiteuses
-                local inv = owner.components.inventory
-                local refuel_percent = owner.prefab == "dummy" and 0.7 or 0.8
-                if uses:GetPercent() <= refuel_percent and inv:Has("nightmarefuel", 1) then
-                    SpawnPrefab("pandorachest_reset").entity:SetParent(eprefab.components.inventoryitem.owner.entity)
-                    uses:SetPercent( math.min(1, (uses:GetPercent() + (1 - refuel_percent)) ))
-                    inv:ConsumeByName("nightmarefuel", 1)
-                    if eprefab.onrefuelfn then eprefab.onrefuelfn(eprefab, owner) end
-                end
-            elseif eprefab.components.fueled and ( eprefab.prefab == "lantern" or eprefab.prefab == "minerhat" or eprefab.prefab == "bottlelantern" ) then
-                local fueled = eprefab.components.fueled
-                local inv = owner.components.inventory
-                local fuel = inv:RemoveItem(inv:FindItem(find_fn("lightbulb")) or inv:FindItem(find_fn("slurtleslime")))
-                if fuel then
-                    if not fueled:TakeFuelItem(fuel, owner) then
-                        inv:GiveItem(fuel)
-                    end
-                end
-            elseif eprefab.components.fueled and eprefab.prefab == "molehat" then
-                local fueled = eprefab.components.fueled
-                local inv = owner.components.inventory
-                local fuel = inv:RemoveItem(inv:FindItem(find_fn("wormlight_lesser")) or inv:FindItem(find_fn("wormlight")))
-                if fuel then
-                    if not fueled:TakeFuelItem(fuel, owner) then
-                        inv:GiveItem(fuel)
-                    end
+            if owner.components.minigame_participator ~= nil then
+                local minigame = owner.components.minigame_participator:GetMinigame()
+                if minigame ~= nil then
+                    minigame:PushEvent("pickupcheat", { cheater = owner, item = v })
                 end
             end
+
+            --Amulet will only ever pick up items one at a time. Even from stacks.
+            SpawnPrefab("shadow_puff").Transform:SetPosition(v.Transform:GetWorldPosition())
+
+            local v_pos = v:GetPosition()
+            if v.components.stackable ~= nil then
+                v = v.components.stackable:Get()
+            end
+
+            if v.components.trap ~= nil and v.components.trap:IsSprung() then
+                v.components.trap:Harvest(owner)
+            else
+                owner.components.inventory:GiveItem(v, nil, v_pos)
+            end
+            return
         end
     end
 end
 
-
 local function onfuelupdate(inst)
-    -- local owner = inst.components.inventoryitem.owner
+    local owner = inst.components.inventoryitem.owner
     if inst._light == nil or not inst._light:IsValid() then
         inst._light = SpawnPrefab("lanternlight")
     end
@@ -175,11 +173,7 @@ local function onfuelupdate(inst)
         inst._light.Light:SetIntensity(Lerp(0.3, 0.5, fuelpercent))
         inst._light.Light:SetRadius(Lerp(1.75, 2.25, fuelpercent))
         inst._light.Light:SetFalloff(.7)
-        -- if owner ~= nil then
-        --     inst._light.entity:SetParent(owner.entity)
-        -- else
-            inst._light.entity:SetParent(inst.entity)
-        -- end
+        inst._light.entity:SetParent((owner or inst).entity)
     end
 end
 
@@ -216,11 +210,17 @@ local function ApplyState(inst, state)
         end,
 
         yellow = function()
-            inst.components.waterproofer:SetEffectiveness(1)
+            inst.components.equippable.walkspeedmult = 1.2
         end,
 
         orange = function()
-            autorefuel(inst, owner)
+            if inst.pickup_task ~= nil then
+                inst.pickup_task:Cancel()
+                inst.pickup_task = nil
+            end
+            if owner then
+                inst.pickup_task = inst:DoPeriodicTask(TUNING.ORANGEAMULET_ICD, pickup, nil, owner)
+            end
         end,
 
         green = function()
@@ -258,7 +258,7 @@ local function ApplyState(inst, state)
         end,
 
         dark = function()
-            if owner and owner.components.combat ~= nil then
+            if owner and owner.components.combat then
                 owner.components.combat.externaldamagemultipliers:SetModifier(inst, 1.2, "nightpack")
             end
         end,
@@ -268,14 +268,10 @@ local function ApplyState(inst, state)
                 inst._light = SpawnPrefab("lanternlight")
             end
             if inst._light ~= nil or inst._light:IsValid() then
-                inst._light.Light:SetIntensity(.5)
+                inst._light.Light:SetIntensity(0.5)
                 inst._light.Light:SetRadius(3)
-                inst._light.Light:SetFalloff(.7)
-                -- if owner ~= nil then
-                --     inst._light.entity:SetParent(owner.entity)
-                -- else
-                    inst._light.entity:SetParent(inst.entity)
-                -- end
+                inst._light.Light:SetFalloff(0.7)
+                inst._light.entity:SetParent((owner or inst).entity)
             end
         end,
 
@@ -311,7 +307,7 @@ local function RenewState(inst, gemtype, isdummy)
     -- healing --
     RemoveListen(inst, owner)
     -- dark --
-    if owner and owner.components.combat ~= nil then
+    if owner and owner.components.combat then
         owner.components.combat.externaldamagemultipliers:RemoveModifier(inst, "nightpack")
     end
     -- light
@@ -320,11 +316,6 @@ local function RenewState(inst, gemtype, isdummy)
             inst._light:Remove()
         end
         inst._light = nil
-    end
-    -- cancel task
-    if inst.state_task ~= nil then
-        inst.state_task:Cancel()
-        inst.state_task = nil
     end
     -- <renew pack> --
     local slots = inst.components.container and inst.components.container.slots or nil
@@ -358,19 +349,6 @@ local function RenewState(inst, gemtype, isdummy)
     end
 end
 
--- local function InitFuelState(inst)
---     if inst.components.fueled == nil then
---         inst:AddComponent("fueled")
---         inst.components.fueled.fueltype = FUELTYPE.NIGHTMARE
---         inst.components.fueled:InitializeFuelLevel(300)
---         inst.components.fueled:SetDepletedFn(onfuelupdate)
---         inst.components.fueled:SetFirstPeriod(TUNING.TURNON_FUELED_CONSUMPTION, TUNING.TURNON_FULL_FUELED_CONSUMPTION)
---         inst.components.fueled:SetPercent(0.6)
---         inst.components.fueled.accepting = true
---         onfuelupdate(inst)
---     end
--- end
-
 local function OnChangeState(inst, state, duration)
     inst._state = state
     inst.components.timer:StopTimer("state_change")
@@ -382,15 +360,15 @@ end
 
 local days = 480
 local gemtype_time_table = {
-    red     = 1 * days,
-    dark    = 1 * days,
-    purple  = 2.5 * days,
-    light   = 2.5 * days,
-    blue    = 5 * days,
-    yellow  = 7.5 * days,
-    orange  = 7.5 * days,
-    green   = 15 * days,
-    opal    = 15 * days,
+    red     = 1.2 * days,
+    dark    = 1.2 * days,
+    purple  = 2.4 * days,
+    light   = 2.4 * days,
+    blue    = 4.8 * days,
+    yellow  = 2.4 * days,
+    orange  = 1.2 * days,
+    green   = 12 * days,
+    opal    = 12 * days,
 }
 
 local function OnGemTrade(inst, gemtype, isdummy)
@@ -408,11 +386,7 @@ local function OnGemTrade(inst, gemtype, isdummy)
             inst.SoundEmitter:PlaySound("dontstarve/common/telebase_gemplace")
         end
     end
-    -- if gemtype == "fuel" then
-    --     OnChangeState(inst, gemtype)
-    -- else
-        OnChangeState(inst, gemtype, gemtype_time_table[gemtype] and gemtype_time_table[gemtype] * ( isdummy and 1.2 or 1 ) )
-    -- end
+    OnChangeState(inst, gemtype, gemtype_time_table[gemtype] and gemtype_time_table[gemtype] * ( isdummy and 1.5 or 1 ) )
 end
 
 local function onequip(inst, owner)
@@ -434,45 +408,30 @@ local function onunequip(inst, owner)
     if owner and owner.components.combat then
         owner.components.combat.externaldamagemultipliers:RemoveModifier(inst, "nightpack")
     end
+    if inst.pickup_task ~= nil then
+        inst.pickup_task:Cancel()
+        inst.pickup_task = nil
+    end
     -- light
-    -- if owner ~= nil then
-    --     if inst._light ~= nil and inst._light:IsValid() then
-    --     inst._light:Remove()
-    --     end
-    -- end
-    -- if inst._state == "fuel" then
-    --     onfuelupdate(inst)
-    -- else
-    -- if inst._state == "light" then
-    --     ApplyState(inst, "light")
-    -- end
+    if inst._light ~= nil and inst._light:IsValid() then
+        inst._light.entity:SetParent(inst.entity)
+    end
 end
 
--- local function ondropped(inst)
---     if inst._state == "fuel" then
---         onfuelupdate(inst)
---     end
--- end
-
-local function OnLoad(inst, data)
+local function OnPreLoad(inst, data)
     if data and data._state then
-        inst._state = data.state
+        inst._state = data._state
         ApplyState(inst, data._state)
     end
 end
 
 local function OnSave(inst, data)
-    if data then
-        data._state = inst._state
-    end
+    data._state = inst._state
 end
 
 local function OnRemove(inst)
     if inst._light ~= nil then
         inst._light:Remove()
-    end
-    if inst._soundtask ~= nil then
-        inst._soundtask:Cancel()
     end
 end
 
@@ -495,18 +454,22 @@ local function common_fn(is_green)
 
     inst.AnimState:SetBank("nightpack")
     inst.AnimState:SetBuild("nightpack")
-    inst.AnimState:PlayAnimation("anim")
+    inst.AnimState:PlayAnimation(is_green and "green" or "anim")
 
     inst:AddTag("backpack")
     inst:AddTag("waterproofer")
 
-    inst.MiniMapEntity:SetIcon("nightpack.tex")
+    inst.MiniMapEntity:SetIcon(is_green and "nightpack_green.tex" or "nightpack.tex")
 
     inst.foleysound = "dontstarve/movement/foley/backpack"
 
-    MakeInventoryFloatable(inst, "small", 0.3, .7)
+    MakeInventoryFloatable(inst, "small", 0.3, 0.7)
 
     inst.entity:SetPristine()
+
+    if is_green then
+        inst:SetPrefabNameOverride("nightpack")
+    end
 
     if not TheWorld.ismastersim then
         inst.OnEntityReplicated = function(inst)
@@ -515,14 +478,10 @@ local function common_fn(is_green)
         return inst
     end
 
-    inst._light = nil
-    inst._state = nil
-
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.cangoincontainer = false
-    -- inst.components.inventoryitem:SetOnDroppedFn(ondropped)
 
     inst:AddComponent("waterproofer")
     inst.components.waterproofer:SetEffectiveness(0)
@@ -545,11 +504,10 @@ local function common_fn(is_green)
     inst.OnChangeState = OnChangeState
 
     inst.OnSave = OnSave
-    inst.OnLoad = OnLoad
+    inst.OnPreLoad = OnPreLoad
     inst.OnRemoveEntity = OnRemove
 
     if is_green then
-        inst:SetPrefabNameOverride("nightpack")
         inst:DoTaskInTime(0, function(inst)
             if inst._state ~= "green" then
                 inst:RenewState()
@@ -569,5 +527,5 @@ local function fn_green()
     return common_fn(true)
 end
 
-return Prefab("nightpack", fn, assets),
-       Prefab("nightback", fn_green, assets)
+return Prefab("nightpack", fn, assets.pack, prefabs.pack),
+       Prefab("nightback", fn_green, assets.green, prefabs.green)

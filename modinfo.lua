@@ -1,11 +1,11 @@
-version = "5.27.2"
+version = "5.28"
 -- basic info --
 name = locale == "zh" and "光暗魔法使" or "Civi"
 author = locale == "zh" and "丁香女子学校" or "Civi, Potter_Lee, kengyou_lei"
 description = locale == "zh" and "[版本: "..version..[[]
 
 更新内容: 
-- 修复 InitCharacterAssets 的问题
+- 重做影背包的部分宝石功能
 
 * 通过吃黑/白宝石升/降级. 
 
@@ -15,7 +15,7 @@ description = locale == "zh" and "[版本: "..version..[[]
 ]] or "[Version: "..version..[[]
 
 Changelog: 
-- Fixed an issue with InitCharacterAssets.
+- Rework part of the gem functions of the nightpack.
 
 * Upgrades/Degrades by eating Dark/Light Gems.
 
