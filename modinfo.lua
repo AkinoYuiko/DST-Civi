@@ -1,11 +1,11 @@
-version = "5.28"
+version = "5.28.1"
 -- basic info --
 name = locale == "zh" and "光暗魔法使" or "Civi"
 author = locale == "zh" and "丁香女子学校" or "Civi, Potter_Lee, kengyou_lei"
 description = locale == "zh" and "[版本: "..version..[[]
 
 更新内容: 
-- 重做影背包的部分宝石功能
+- 调整影背包部分功能.
 
 * 通过吃黑/白宝石升/降级. 
 
