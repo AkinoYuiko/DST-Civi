@@ -50,7 +50,7 @@ local function OnHealing(inst, data)
         local epicmult = victim:HasTag("dualsoul") and 2
                     or (victim:HasTag("epic") and math.random(7, 8))
                     or 1
-        if inst.components.health then inst.components.health:DoDelta(10 * epicmult) end
+        if inst.components.health then inst.components.health:DoDelta(5 * epicmult) end
     end
 end
 
@@ -206,7 +206,7 @@ local function ApplyState(inst, state)
         end,
 
         purple = function()
-            inst.components.equippable.dapperness = TUNING.DAPPERNESS_LARGE
+            inst.components.equippable.dapperness = -TUNING.CRAZINESS_SMALL
         end,
 
         yellow = function()
