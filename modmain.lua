@@ -1,4 +1,3 @@
--- local GlassicAPI = GLOBAL.GlassicAPI
 Assets = {}
 PrefabFiles = {
 	"civi",
@@ -15,13 +14,10 @@ GlassicAPI.InitMinimapAtlas("civi_minimap", Assets)
 
 GlassicAPI.RegisterItemAtlas("civi_inventoryimages", Assets)
 
-modimport("strings/civi_init.lua")
-modimport("scripts/modules/prefabskin.lua")
-modimport("strings/civi_str"..(table.contains({"zh","chs","cht"}, GLOBAL.LanguageTranslator.defaultlang) and "_chs" or "")..".lua")
+modimport("main/tuning")
+modimport("main/strings")
 
--- mod config --
-TUNING.WEAPONPLAN = GetModConfigData("WEAPONPLAN")
-TUNING.GEARPLAN = GetModConfigData("GEARPLAN")
+modimport("scripts/modules/prefabskin.lua")
 
 -- Special Recipe by Civi --
 modimport("scripts/modules/civi_recipes.lua")
