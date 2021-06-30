@@ -15,8 +15,7 @@ Assets = {
 
 AddModCharacter("civi", "MALE")
 
-modimport("strings/civi_init.lua")
-modimport("strings/civi_str"..(table.contains({"zh","chs","cht"}, GLOBAL.LanguageTranslator.defaultlang) and "_chs" or "")..".lua")
+modimport("main/strings.lua")
 
 local SkinHandler = require("skinhandler")
 SkinHandler.AddModSkins({
