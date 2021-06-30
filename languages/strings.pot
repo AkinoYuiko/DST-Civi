@@ -80,7 +80,7 @@ msgstr ""
 
 #. STRINGS.CHARACTERS.GENERIC.DESCRIBE.NIGHTPACK
 msgctxt "STRINGS.CHARACTERS.GENERIC.DESCRIBE.NIGHTPACK"
-msgid "It seems to need some glowing materials."
+msgid "It seems able to socket gems!"
 msgstr ""
 
 #. STRINGS.CHARACTERS.GENERIC.DESCRIBE.DARKAMULET

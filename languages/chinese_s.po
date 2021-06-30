@@ -62,102 +62,102 @@ msgstr ""
 #. STRINGS.CHARACTERS.GENERIC.DESCRIBE.BLACKLOTUS
 msgctxt "STRINGS.CHARACTERS.GENERIC.DESCRIBE.BLACKLOTUS"
 msgid "Is it real?"
-msgstr ""
+msgstr "这是真实存在的吗？"
 
 #. STRINGS.CHARACTERS.GENERIC.DESCRIBE.DARKLOTUS
 msgctxt "STRINGS.CHARACTERS.GENERIC.DESCRIBE.DARKLOTUS"
 msgid "Is it real?"
-msgstr ""
+msgstr "这是真实存在的吗？"
 
 #. STRINGS.CHARACTERS.GENERIC.DESCRIBE.DARKGEM
 msgctxt "STRINGS.CHARACTERS.GENERIC.DESCRIBE.DARKGEM"
 msgid "Get closer to dark!"
-msgstr ""
+msgstr "使你更接近黑暗！"
 
 #. STRINGS.CHARACTERS.GENERIC.DESCRIBE.LIGHTGEM
 msgctxt "STRINGS.CHARACTERS.GENERIC.DESCRIBE.LIGHTGEM"
 msgid "Get closer to light!"
-msgstr ""
+msgstr "使你更接近光明！"
 
 #. STRINGS.CHARACTERS.GENERIC.DESCRIBE.LIGHTAMULET
 msgctxt "STRINGS.CHARACTERS.GENERIC.DESCRIBE.LIGHTAMULET"
 msgid "I can feel the darkness away."
-msgstr ""
+msgstr "黑 暗 退 散!"
 
 #. STRINGS.CHARACTERS.GENERIC.DESCRIBE.LIGHTLOTUS
 msgctxt "STRINGS.CHARACTERS.GENERIC.DESCRIBE.LIGHTLOTUS"
 msgid "Is it real?"
-msgstr ""
+msgstr "这是真实存在的吗？"
 
 #. STRINGS.CHARACTERS.GENERIC.DESCRIBE.NIGHTPACK
 msgctxt "STRINGS.CHARACTERS.GENERIC.DESCRIBE.NIGHTPACK"
-msgid "It seems to need some glowing materials."
-msgstr ""
+msgid "It seems able to socket gems!"
+msgstr "可以镶嵌宝石！"
 
 #. STRINGS.CHARACTERS.GENERIC.DESCRIBE.DARKAMULET
 msgctxt "STRINGS.CHARACTERS.GENERIC.DESCRIBE.DARKAMULET"
 msgid "I can feel the darkness coming."
-msgstr ""
+msgstr "我能感受到黑暗来临。"
 
 #. STRINGS.CHARACTER_BIOS.civi.1.title
 msgctxt "STRINGS.CHARACTER_BIOS.civi.1.title"
 msgid "Birthday"
-msgstr ""
+msgstr "生日"
 
 #. STRINGS.CHARACTER_BIOS.civi.1.desc
 msgctxt "STRINGS.CHARACTER_BIOS.civi.1.desc"
 msgid "Feb 25"
-msgstr ""
+msgstr "2月25日"
 
 #. STRINGS.CHARACTER_BIOS.civi.2.title
 msgctxt "STRINGS.CHARACTER_BIOS.civi.2.title"
 msgid "Favorite Food"
-msgstr ""
+msgstr "最喜欢的食物"
 
 #. STRINGS.CHARACTER_BIOS.civi.2.desc
 msgctxt "STRINGS.CHARACTER_BIOS.civi.2.desc"
 msgid "Lv.0 - Bone Bouillo"
-msgstr ""
+msgstr "等级 0 - 骨头汤"
 
 #. STRINGS.RECIPE_DESC.BLACKLOTUS
 msgctxt "STRINGS.RECIPE_DESC.BLACKLOTUS"
 msgid "Shine in the darkness."
-msgstr ""
+msgstr "在黑暗中绽放光芒"
 
 #. STRINGS.RECIPE_DESC.LIGHTAMULET
 msgctxt "STRINGS.RECIPE_DESC.LIGHTAMULET"
 msgid "Keep away from dark things."
-msgstr ""
+msgstr "远离黑暗"
 
 #. STRINGS.RECIPE_DESC.DARKGEM
 msgctxt "STRINGS.RECIPE_DESC.DARKGEM"
 msgid "Upgrades!"
-msgstr ""
+msgstr "升级！升级！"
 
 #. STRINGS.RECIPE_DESC.LIGHTGEM
 msgctxt "STRINGS.RECIPE_DESC.LIGHTGEM"
 msgid "Degrades!"
-msgstr ""
+msgstr "降级！降级！"
 
 #. STRINGS.RECIPE_DESC.DARKAMULET
 msgctxt "STRINGS.RECIPE_DESC.DARKAMULET"
 msgid "Powerful but dark."
-msgstr ""
+msgstr "深邃而充满力量。"
 
 #. STRINGS.RECIPE_DESC.REDGEM
 msgctxt "STRINGS.RECIPE_DESC.REDGEM"
 msgid "Change ice into fire."
-msgstr ""
+msgstr "用噩梦扭曲冰冻"
 
 #. STRINGS.RECIPE_DESC.NIGHTPACK
 msgctxt "STRINGS.RECIPE_DESC.NIGHTPACK"
 msgid "Dark away."
-msgstr ""
+msgstr "驱散黑暗"
 
 #. STRINGS.RECIPE_DESC.BLUEGEM
 msgctxt "STRINGS.RECIPE_DESC.BLUEGEM"
 msgid "Change fire into ice."
-msgstr ""
+msgstr "用噩梦扭曲火焰"
 
 #. STRINGS.CHARACTER_QUOTES.civi
 msgctxt "STRINGS.CHARACTER_QUOTES.civi"
@@ -166,10 +166,8 @@ msgstr ""
 
 #. STRINGS.SKIN_DESCRIPTIONS.civi_none
 msgctxt "STRINGS.SKIN_DESCRIPTIONS.civi_none"
-msgid ""
-"Civi can control magic, turning lights into darks, or turning darks into "
-"lights."
-msgstr ""
+msgid "Civi can control magic, turning lights into darks, or turning darks into lights."
+msgstr "控制光与暗的魔法使, 拥有超强的适应能力和战斗能力."
 
 #. STRINGS.CHARACTER_TITLES.civi
 msgctxt "STRINGS.CHARACTER_TITLES.civi"
@@ -184,17 +182,17 @@ msgstr ""
 #. STRINGS.CIVI_GEMS.ALREADY_DARK
 msgctxt "STRINGS.CIVI_GEMS.ALREADY_DARK"
 msgid "I've already in the dark."
-msgstr ""
+msgstr "我已经深陷黑暗中"
 
 #. STRINGS.CIVI_GEMS.FEEL_DARK
 msgctxt "STRINGS.CIVI_GEMS.FEEL_DARK"
 msgid "I felt the dark."
-msgstr ""
+msgstr "我已经沐浴在光明中"
 
 #. STRINGS.SKIN_NAMES.armorskeleton_none
 msgctxt "STRINGS.SKIN_NAMES.armorskeleton_none"
 msgid "Emperor's Formal"
-msgstr ""
+msgstr "皇帝的新衣"
 
 #. STRINGS.SKIN_NAMES.civi_none
 msgctxt "STRINGS.SKIN_NAMES.civi_none"

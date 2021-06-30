@@ -1,9 +1,9 @@
 return {
-	-- DESCRIBE_PLANTHAPPY = "What a happy plant!",
-	-- ANNOUNCE_CRAFTING_FAIL = "I'm missing a couple key ingredients.",
-	-- ANNOUNCE_ADVENTUREFAIL = "That didn't go well. I'll have to try again.",
+	-- DESCRIBE_PLANTHAPPY = "What a happy plant!", -- :happybuff:
+	ANNOUNCE_CRAFTING_FAIL = "Nope, missing ingredients.",
+	ANNOUNCE_ADVENTUREFAIL = "I shall try again",
 	-- ANNOUNCE_YOTB_LEARN_NEW_PATTERN = "My mind has been filled with beefalo styling inspiration!",
-	-- ANNOUNCE_QUAKE = "That doesn't sound good.",
+	ANNOUNCE_QUAKE = "Ahhh! Something bad is happening.",
 	ACTIONFAIL =
 	{
 		POUR_WATER_GROUNDTILE =
@@ -24,20 +24,20 @@ return {
 		},
 		FILL_OCEAN =
 		{
-			-- UNSUITABLE_FOR_PLANTS = "For some reason, plants don't like salt water.",
+			UNSUITABLE_FOR_PLANTS = "Nope, plants hate salt water.",
 		},
 		ACTIVATE =
 		{
 			-- NOCARNIVAL = "It looks like those birds flew the coop.",
-			-- LOCKED_GATE = "The gate is locked.",
+			LOCKED_GATE = "Nope, it's locked.",
 			-- HOSTBUSY = "He seems a bit preoccupied at the moment.",
 			-- CARNIVAL_HOST_HERE = "He's around here somewhere.",
 		},
 		ROW_FAIL =
 		{
 			-- BAD_TIMING1 = "My timing is off!",
-			-- BAD_TIMING2 = "Not again!",
-			-- BAD_TIMING0 = "Too soon!",
+			BAD_TIMING2 = "Nope again!",
+			BAD_TIMING0 = "Tooooo fast!",
 		},
 		START_CARRAT_RACE =
 		{
