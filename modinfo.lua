@@ -10,8 +10,6 @@ description = locale == "zh" and "[版本: "..version..[[]
 * 通过吃黑/白宝石升/降级. 
 
 * 专属道具和配方.
-
-*** 请仔细看模组选项! ***
 ]] or "[Version: "..version..[[]
 
 Changelog: 
@@ -20,9 +18,7 @@ Changelog:
 * Upgrades/Degrades by eating Dark/Light Gems.
 
 * Exclusive items and recipes.
-
-
-*** PLEAZE CHECK MOD OPTIONS!! ***]]
+]]
 
 forumthread = ""
 api_version = 10

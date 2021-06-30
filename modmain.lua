@@ -11,26 +11,18 @@ PrefabFiles = {
 
 GlassicAPI.InitCharacterAssets("civi", "MALE", Assets)
 GlassicAPI.InitMinimapAtlas("civi_minimap", Assets)
-
 GlassicAPI.RegisterItemAtlas("civi_inventoryimages", Assets)
 
-modimport("main/tuning")
-modimport("main/strings")
+local main_files = {
+    "gem_socket",
+    "lotus_switch",
+    "night_switch",
+    "prefabskin",
+    "recipes",
+    "refuel_sword",
+    "sanity_calc_rework",
+    "strings",
+    "tuning",
+}
 
-modimport("scripts/modules/prefabskin.lua")
-
--- Special Recipe by Civi --
-modimport("scripts/modules/civi_recipes.lua")
-
--- Refuel Black Lotus by Civi --
-modimport("scripts/modules/refuel_sword.lua")
-
--- Gem trade on Nightpack by Civi --
-modimport("scripts/modules/gem_socket.lua")
-
--- NightSwitch by Civi --
-modimport("scripts/modules/nightswitch.lua")
-modimport("scripts/modules/lotusswitch.lua")
-
--- Sanity Rework by Civi --
-modimport("scripts/modules/sanity_calc_rework.lua")
+GlassicAPI.ImportFromMain(main_files)
