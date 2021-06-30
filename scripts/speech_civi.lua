@@ -1956,7 +1956,7 @@ return {
 		},
 		-- PIGKING = "Ewwww, he smells!",
 		-- FARM_PLOW_ITEM = "I'd better find a good spot for my garden before I use it.",
-		-- MOSSLING = "Aaah! You are definitely not an electron!",
+		 MOSSLING = "󰂡",
 		-- SPIDERDEN_BEDAZZLER = "It looks like someone's been getting crafty.",
 		-- LAVAARENA_FIREBOMB = "It smells like brimstone.",
 		-- COMPOST = "Food for plants, and not much else.",
