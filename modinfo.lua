@@ -1,4 +1,4 @@
-version = "5.29"
+version = "5.29.1"
 -- basic info --
 name = locale == "zh" and "光暗魔法使" or "Civi"
 author = locale == "zh" and "丁香女子学校" or "Civi, Potter_Lee, kengyou_lei"
@@ -6,6 +6,7 @@ description = locale == "zh" and "[版本: "..version..[[]
 
 更新内容: 
 - 使用新的文本翻译系统.
+- 新增专属皮肤：水晶头骨（骨头盔）
 
 * 通过吃黑/白宝石升/降级. 
 
@@ -14,6 +15,7 @@ description = locale == "zh" and "[版本: "..version..[[]
 
 Changelog: 
 - Rework translations.
+- Add new skin exclusive to Civi: Crystal Skull (Skeleton Helm).
 
 * Upgrades/Degrades by eating Dark/Light Gems.
 
