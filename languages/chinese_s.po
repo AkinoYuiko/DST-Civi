@@ -82,7 +82,7 @@ msgstr "使你更接近光明！"
 #. STRINGS.CHARACTERS.GENERIC.DESCRIBE.LIGHTAMULET
 msgctxt "STRINGS.CHARACTERS.GENERIC.DESCRIBE.LIGHTAMULET"
 msgid "I can feel the darkness away."
-msgstr "黑 暗 退 散!"
+msgstr "黑 暗 退 散."
 
 #. STRINGS.CHARACTERS.GENERIC.DESCRIBE.LIGHTLOTUS
 msgctxt "STRINGS.CHARACTERS.GENERIC.DESCRIBE.LIGHTLOTUS"
@@ -122,12 +122,12 @@ msgstr "等级 0 - 骨头汤"
 #. STRINGS.RECIPE_DESC.BLACKLOTUS
 msgctxt "STRINGS.RECIPE_DESC.BLACKLOTUS"
 msgid "Shine in the darkness."
-msgstr "在黑暗中绽放光芒"
+msgstr "在黑暗中绽放光芒."
 
 #. STRINGS.RECIPE_DESC.LIGHTAMULET
 msgctxt "STRINGS.RECIPE_DESC.LIGHTAMULET"
 msgid "Keep away from dark things."
-msgstr "远离黑暗"
+msgstr "远离黑暗."
 
 #. STRINGS.RECIPE_DESC.DARKGEM
 msgctxt "STRINGS.RECIPE_DESC.DARKGEM"
@@ -147,17 +147,17 @@ msgstr "深邃而充满力量。"
 #. STRINGS.RECIPE_DESC.REDGEM
 msgctxt "STRINGS.RECIPE_DESC.REDGEM"
 msgid "Change ice into fire."
-msgstr "用噩梦扭曲冰冻"
+msgstr "用噩梦扭曲冰冻."
 
 #. STRINGS.RECIPE_DESC.NIGHTPACK
 msgctxt "STRINGS.RECIPE_DESC.NIGHTPACK"
 msgid "Dark away."
-msgstr "驱散黑暗"
+msgstr "驱散黑暗."
 
 #. STRINGS.RECIPE_DESC.BLUEGEM
 msgctxt "STRINGS.RECIPE_DESC.BLUEGEM"
 msgid "Change fire into ice."
-msgstr "用噩梦扭曲火焰"
+msgstr "用噩梦扭曲火焰."
 
 #. STRINGS.CHARACTER_QUOTES.civi
 msgctxt "STRINGS.CHARACTER_QUOTES.civi"
@@ -182,12 +182,12 @@ msgstr ""
 #. STRINGS.CIVI_GEMS.ALREADY_DARK
 msgctxt "STRINGS.CIVI_GEMS.ALREADY_DARK"
 msgid "I've already in the dark."
-msgstr "我已经深陷黑暗中"
+msgstr "我已经深陷黑暗中."
 
 #. STRINGS.CIVI_GEMS.FEEL_DARK
 msgctxt "STRINGS.CIVI_GEMS.FEEL_DARK"
 msgid "I felt the dark."
-msgstr "我已经沐浴在光明中"
+msgstr "我已经沐浴在光明中."
 
 #. STRINGS.SKIN_NAMES.armorskeleton_none
 msgctxt "STRINGS.SKIN_NAMES.armorskeleton_none"
