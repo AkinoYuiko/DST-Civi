@@ -1,5 +1,5 @@
 return {
-	-- DESCRIBE_PLANTHAPPY = "What a happy plant!", -- :happybuff:
+	-- DESCRIBE_PLANTHAPPY = "What a happy plant!",
 	ANNOUNCE_CRAFTING_FAIL = "Nope, missing ingredients.",
 	ANNOUNCE_ADVENTUREFAIL = "I shall try again",
 	-- ANNOUNCE_YOTB_LEARN_NEW_PATTERN = "My mind has been filled with beefalo styling inspiration!",
@@ -183,7 +183,7 @@ return {
 		BUILD =
 		{
 			-- HASPET = "I've already got a pet.",
-			-- MOUNTED = ":nope:",
+			-- MOUNTED = "I can't place that from way up here.",
 		},
 		COMPARE_WEIGHABLE =
 		{
@@ -383,7 +383,6 @@ return {
 	-- ANNOUNCE_OCEAN_SILHOUETTE_INCOMING = "Uh-oh. Sea monsters!",
 	-- ANNOUNCE_CHARLIE_ATTACK = "OW! Something bit me!",
 	-- ANNOUNCE_WEIGHT_HEAVY = "Weight: {weight}\\nI'm a fishing heavyweight!",
-	-- CIVICIVI = "TEST CIVI",
 	-- ANNOUNCE_KLAUS_UNCHAINED = "Its chains came off!",
 	EAT_FOOD =
 	{
@@ -1017,6 +1016,7 @@ return {
 		},
 		-- MONSTERTARTARE = "There's got to be something else to eat around here.",
 		MOOSE = "󰂡",
+		-- NIGHTMARE_AXE_PICKAXE = "Will it be faster than normal tools?",
 		-- LEAFLOAF = "Mystery leaf meat.",
 		SPIDER_WARRIOR =
 		{
@@ -1496,7 +1496,11 @@ return {
 			-- GENERIC = "It's a den in a stump.",
 			-- EMPTY = "Its owner ran out of lives.",
 		},
+		-- DARKAMULET = "I can feel the darkness coming.",
+		-- NIGHTPACK = "It seems to need some glowing materials.",
 		-- QUAGMIRE_SPOTSPICE_SPRIG = "I could grind it up to make a spice.",
+		-- LIGHTLOTUS = "Is it real?",
+		-- LIGHTAMULET = "I can feel the darkness away.",
 		-- LAVAE = "Too hot to handle.",
 		WATERINGCAN =
 		{
@@ -1515,9 +1519,9 @@ return {
 			-- DEAD = "Gotcha!",
 		},
 		-- EEL_COOKED = "Smells great!",
-		-- DARKAMULET = "I can feel the darkness coming.",
-		-- NIGHTPACK = "It seems to need some glowing materials.",
-		-- LIGHTLOTUS = "Is it real?",
+		-- DARKGEM = "Get closer to dark!",
+		-- DARKLOTUS = "Is it real?",
+		-- BLACKLOTUS = "Is it real?",
 		-- WALL_WOOD_ITEM = "Pickets!",
 		MUSHROOMSPROUT =
 		{
@@ -1536,11 +1540,11 @@ return {
 		},
 		-- EGGPLANT_SEEDS = "It's a seed.",
 		-- CAVE_BANANA = "It's mushy.",
-		-- LIGHTAMULET = "I can feel the darkness away.",
-		-- DARKGEM = "Get closer to dark!",
-		-- DARKLOTUS = "Is it real?",
+		-- NIGHTMARE_SPEAR = "It looks like breaking.",
+		-- BLACKHOLESTAFF = "???",
+		-- BOOKTOGGLE_DOWNFALL = "/toggledownfall",
 		-- OCEANFISHINGLURE_SPOON_BLUE = "Some smaller fish might find this a-luring!",
-		-- BLACKLOTUS = "Is it real?",
+		-- BOOK_HARVEST = "H-A-R-V-E-S-T!",
 		-- BOARRIOR = "You sure are big!",
 		-- SPIDERHAT = "I hope I got all of the spider goo out of it.",
 		-- OCEANFISH_MEDIUM_1 = "I certainly hope it tastes better than it looks.",
