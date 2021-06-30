@@ -25,4 +25,4 @@ local main_files = {
     "tuning",
 }
 
-GlassicAPI.ImportFromMain(main_files)
+for _,v in pairs(main_files) do modimport("main/"..v) end
