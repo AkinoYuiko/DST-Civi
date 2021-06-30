@@ -24,7 +24,8 @@ local strings = {
     SKIN_NAMES = 
     {
         civi_none = "Civi",
-        armorskeleton_none = "Emperor's Formal"
+        armorskeleton_none = "Emperor's Formal",
+		skeletonhat_glass = "Crystal Skull",
     },
     SKIN_DESCRIPTIONS = 
     {

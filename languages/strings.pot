@@ -128,6 +128,11 @@ msgctxt "STRINGS.CHARACTERS.CIVI.ACTIONFAIL_GENERIC"
 msgid "nope"
 msgstr ""
 
+#. STRINGS.CHARACTERS.CIVI.DESCRIBE.MOSSLING
+msgctxt "STRINGS.CHARACTERS.CIVI.DESCRIBE.MOSSLING"
+msgid "󰂡"
+msgstr ""
+
 #. STRINGS.CHARACTERS.CIVI.DESCRIBE.MOOSE
 msgctxt "STRINGS.CHARACTERS.CIVI.DESCRIBE.MOOSE"
 msgid "󰂡"
@@ -241,5 +246,10 @@ msgstr ""
 #. STRINGS.SKIN_NAMES.civi_none
 msgctxt "STRINGS.SKIN_NAMES.civi_none"
 msgid "Civi"
+msgstr ""
+
+#. STRINGS.SKIN_NAMES.skeletonhat_glass
+msgctxt "STRINGS.SKIN_NAMES.skeletonhat_glass"
+msgid "Crystal Skull"
 msgstr ""
 
