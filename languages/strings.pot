@@ -88,6 +88,16 @@ msgctxt "STRINGS.CHARACTERS.GENERIC.DESCRIBE.DARKAMULET"
 msgid "I can feel the darkness coming."
 msgstr ""
 
+#. STRINGS.CHARACTERS.CIVI.CIVICIVI
+msgctxt "STRINGS.CHARACTERS.CIVI.CIVICIVI"
+msgid "TEST CIVI"
+msgstr ""
+
+#. STRINGS.CHARACTERS.CIVI.ACTIONFAIL.BUILD.MOUNTED
+msgctxt "STRINGS.CHARACTERS.CIVI.ACTIONFAIL.BUILD.MOUNTED"
+msgid ":nope:"
+msgstr ""
+
 #. STRINGS.CHARACTER_BIOS.civi.1.title
 msgctxt "STRINGS.CHARACTER_BIOS.civi.1.title"
 msgid "Birthday"

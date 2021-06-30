@@ -50,7 +50,9 @@ local strings = {
                 DARKGEM = "Get closer to dark!",
                 LIGHTGEM = "Get closer to light!",
             }
-        }
+        },
+        CIVI = require("speech_civi"),
+        -- MIOTAN = require("speech_miotan")
     },
     -- character
     CHARACTER_NAMES = 
@@ -83,10 +85,14 @@ local strings = {
     },
 }
 
+-- GlassicAPI.MergeStringsToGLOBAL(require("speech_wortox"), strings.CHARACTERS.MIOTAN, true)
 GlassicAPI.MergeStringsToGLOBAL(strings)
-GlassicAPI.MergeTranslationFromPO(MODROOT.."languages", "zh")
+GlassicAPI.MergeTranslationFromPO(MODROOT.."languages")
 
 GLOBAL.UpdateCiviStrings = function()
+    local file, errormsg = GLOBAL.io.open(MODROOT .. "scripts/speech_civi.lua", "w")
+    if not file then print("Can't update " .. MODROOT .. "scripts/speech_civi.lua", "\n", tostring(errormsg)) return end
+    GlassicAPI.MergeSpeechFile(require("speech_civi"), file)
     local file, errormsg = GLOBAL.io.open(MODROOT .. "languages/strings.pot", "w")
     if not file then print("Can't generate " .. MODROOT .. "languages/strings.pot", "\n", tostring(errormsg)) return end
     GlassicAPI.MakePOTFromStrings(file, strings)
