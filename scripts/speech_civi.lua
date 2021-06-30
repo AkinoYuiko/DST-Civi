@@ -308,7 +308,7 @@ return {
 	-- ANNOUNCE_BOOMERANG = "Ow! I should try to catch that!",
 	-- ANNOUNCE_NODANGERSLEEP = "I'm too scared of dying to sleep right now!",
 	-- QUAGMIRE_ANNOUNCE_WIN = "Time to go!",
-	-- ACTIONFAIL_GENERIC = "I can't do that.",
+	ACTIONFAIL_GENERIC = "nope",
 	-- ANNOUNCE_ACCOMPLISHMENT_DONE = "If only my friends could see me now...",
 	-- ANNOUNCE_CANTBUILDHERE_THRONE = "only_used_by_wurt",
 	-- ANNOUNCE_DUSK = "It's getting late. It will be dark soon.",
@@ -1016,7 +1016,7 @@ return {
 			-- DEAD = "Maybe he's just resting?",
 		},
 		-- MONSTERTARTARE = "There's got to be something else to eat around here.",
-		-- MOOSE = "I don't exactly know what that thing is.",
+		MOOSE = "󰂡",
 		-- LEAFLOAF = "Mystery leaf meat.",
 		SPIDER_WARRIOR =
 		{

@@ -33,7 +33,9 @@ local strings = {
     CIVI_GEMS = 
     {
         FEEL_DARK = "I felt the dark.",
-        ALREADY_DARK = "I've already in the dark."
+        ALREADY_DARK = "I've already in the dark.",
+        FEEL_LIGHT = "I felt the light.",
+        ALREADY_LIGHT = "I've already in the light.",
     },
     CHARACTERS =
     {
