@@ -15,6 +15,7 @@ Assets = {
 
 AddModCharacter("civi", "MALE")
 
+modimport("main/tuning.lua")
 modimport("main/strings.lua")
 
 local SkinHandler = require("skinhandler")
