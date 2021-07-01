@@ -2,6 +2,7 @@ local STRINGS = GLOBAL.STRINGS
 local strings = {
     NAMES = 
     {
+        CIVI = "Civi",
         LIGHTAMULET = "Light Amulet",
         DARKAMULET = "Dark Amulet",
         NIGHTPACK = "Night Backpack",
