@@ -25,4 +25,6 @@ local main_files = {
     "tuning",
 }
 
-for _,v in pairs(main_files) do modimport("main/"..v) end
+for _, v in ipairs(main_files) do
+    modimport("main/"..v)
+end
