@@ -65,19 +65,19 @@ local strings = {
     },
     CHARACTER_TITLES = 
     {
-        civi = "Civi"
+        civi = "Mogician of Light and Dark"
     },
     CHARACTER_ABOUTME = 
     {
-        civi = "Civi"
+        civi = "Civi can control magic, turning lights into darks, or turning darks into lights."
     },
     CHARACTER_DESCRIPTIONS = 
     {
-        civi = "Civi"
+        civi = "*Travel between light and dark.\n*Can control nightmare."
     },
     CHARACTER_QUOTES = 
     {
-        civi = "Civi"
+        civi = "\"Get close to Nightmare!\""
     },
     CHARACTER_BIOS = 
     {
