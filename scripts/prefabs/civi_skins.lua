@@ -5,8 +5,8 @@ table.insert(prefabs, CreatePrefabSkin("armorskeleton_none", {
 	type = "item",
     rarity = "Glassic",
     assets = {
-        Asset( "ANIM", "anim/armorskeleton_none.zip"),
-        Asset( "INV_IMAGE", "armorskeleton_none"),
+        Asset( "DYNAMIC_ANIM", "anim/dynamic/armorskeleton_none.zip" ),
+        Asset( "PKGREF", "anim/dynamic/armorskeleton_none.dyn" ),
     },
     init_fn = function(inst) armorskeleton_init_fn(inst, "armorskeleton_none") end,
 	skin_tags = { "ARMORSKELETON" },
@@ -17,8 +17,8 @@ table.insert(prefabs, CreatePrefabSkin("skeletonhat_glass", {
 	type = "item",
 	rarity = "Glassic",
 	assets = {
-		Asset( "ANIM", "anim/skeletonhat_glass.zip"),
-		Asset( "INV_IMAGE", "skeletonhat_glass"),
+		Asset( "DYNAMIC_ANIM", "anim/dynamic/skeletonhat_glass.zip" ),
+		Asset( "PKGREF", "anim/dynamic/skeletonhat_glass.dyn" ),
 	},
 	init_fn = function(inst) skeletonhat_init_fn(inst, "skeletonhat_glass") end,
 	skin_tags = { "SKELETONHAT" },
