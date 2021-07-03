@@ -6,8 +6,6 @@ local strings = {
         LIGHTAMULET = "Light Amulet",
         DARKAMULET = "Dark Amulet",
         NIGHTPACK = "Night Backpack",
-        BLACKLOTUS = "Black Lotus",
-        DARKLOTUS = "Dark Lotus",
         DARKGEM = "Dark Gem",
         LIGHTGEM = "Light Gem"
     },
@@ -15,7 +13,6 @@ local strings = {
     {
         REDGEM = "Change ice into fire.",
         BLUEGEM = "Change fire into ice.",
-        BLACKLOTUS = "Shine in the darkness.",
         NIGHTPACK = "Dark away.",
         DARKAMULET = "Powerful but dark.",
         LIGHTAMULET = "Keep away from dark things.",
@@ -45,9 +42,6 @@ local strings = {
         {
             DESCRIBE =
             {
-                BLACKLOTUS = "Is it real?",
-                DARKLOTUS = "Is it real?",
-                LIGHTLOTUS = "Is it real?",
                 NIGHTPACK = "It seems to need some glowing materials.",
                 DARKAMULET = "I can feel the darkness coming.",
                 LIGHTAMULET = "I can feel the darkness away.",
