@@ -1,11 +1,12 @@
-version = "5.30"
+version = "6.0.RC1"
 -- basic info --
 name = locale == "zh" and "光暗魔法使" or "Civi"
 author = locale == "zh" and "丁香女子学校" or "Civi, Potter_Lee, kengyou_lei"
 description = locale == "zh" and "[版本: "..version..[[]
 
 更新内容: 
-- 使用dyn格式的皮肤.
+- 抛弃旧版武器方案
+- 影刀现在可以插入黑宝石和白宝石了
 
 * 通过吃黑/白宝石升/降级. 
 
@@ -13,7 +14,8 @@ description = locale == "zh" and "[版本: "..version..[[]
 ]] or "[Version: "..version..[[]
 
 Changelog: 
-- Set skins' format to dyn.
+- Remove old weapon plans.
+- Dark Sword can socket dark/light gems now.
 
 * Upgrades/Degrades by eating Dark/Light Gems.
 
@@ -45,25 +47,6 @@ end
 
 configuration_options =
 {
-	{
-		name = "WEAPONPLAN",
-		label = (locale == "zh" and "选择武器方案" or "Specify weapon plan"),
-		hover = "",
-		options = {
-			{description = (locale == "zh" and "【黑莲】" or "Black Lotus"),
-			 hover = (locale == "zh" and "攻击力 59.5, 耐久 100, 可以使用【噩梦燃料】充能"
- 			 						or "59.5 Damage, 100 Uses; Can be refueled."),
-			 data = 1
-			},
-			{description = (locale == "zh" and "【暗莲】和【光莲】" or "Dark/Light Lotus"),
-			 hover = (locale == "zh" and "【暗莲】: 攻击力 76.5, 耐久 100; 【光莲】: 攻击力 68, 耐久 150; "
- 			 						or "Dark: 76.5 Damage, 100 Uses; Light: 68 Damage, 150 Uses."),
-			 data = 2
-			},
-			-- {description = "Off", data = 0, hover = "Disable extra functions."},
-		},
-		default = 1,
-	},
 	{
 		name = "GEARPLAN",
 		label = (locale == "zh" and "选择装备方案" or "Specify gear plan"),
