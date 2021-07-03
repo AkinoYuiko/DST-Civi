@@ -166,7 +166,7 @@ ENV.AddPrefabPostInit("nightsword", function(inst)
                             --local pos = slot_widget
                             --    and Vector3(TheSim:ProjectScreenPos(slot_widget:GetWorldPosition():Get()))
                             --    or inst:GetPosition()
-                            container:GiveItem(single_gem)
+                            container:GiveItem(single_gem, nil, inst:GetPosition())
                         end
                     end
                 end

@@ -1,4 +1,4 @@
-version = "6.1"
+version = "6.1."
 -- basic info --
 name = locale == "zh" and "光暗魔法使" or "Civi"
 author = locale == "zh" and "丁香女子学校" or "Civi, Potter_Lee, kengyou_lei"
