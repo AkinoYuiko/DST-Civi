@@ -1,7 +1,7 @@
 local assets =
 {
-    Asset("ANIM", "anim/blacklotus.zip"),
-    Asset("ANIM", "anim/swap_blacklotus.zip"),
+--    Asset("ANIM", "anim/blacklotus.zip"),
+--    Asset("ANIM", "anim/swap_blacklotus.zip"),
 }
 
 local function fx_enable(inst)

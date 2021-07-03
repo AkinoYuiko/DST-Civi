@@ -23,13 +23,13 @@ NIGHTSWORDGEM.fn = function(act)
 
         target:InitContainer()
 
-        if doer.components.inventory:IsItemEquipped(target) then
-            doer:DoTaskInTime(0.2, function(inst)
-                if target.replica.container then
-                    target.replica.container:Open(doer)
-                end
-            end)
-        end
+        doer:DoTaskInTime(0.2, function(inst)
+			if doer.components.inventory:IsItemEquipped(target) then
+		        if target.replica.container then
+   		            target.replica.container:Open(doer)
+   		        end
+        	end
+        end)
 
         target.components.container:GiveItem(item)
 
