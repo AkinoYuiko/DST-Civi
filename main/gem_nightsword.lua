@@ -3,6 +3,9 @@ GLOBAL.setfenv(1, GLOBAL)
 
 local function InitContainer(inst)
     inst:AddTag("nogemsocket")
+
+    if not TheWorld.ismastersim then return end
+
     inst:AddComponent("container")
     inst.components.container:WidgetSetup("nightsword")
     inst.components.container.canbeopened = false
@@ -20,10 +23,12 @@ NIGHTSWORDGEM.fn = function(act)
 
         target:InitContainer()
 
-        if target.components.equippable and target.components.equippable:IsEquipped() then
-            if target.components.inventoryitem.owner == doer then
-                target.components.container:Open(doer)
-            end
+        if doer.components.inventory:IsItemEquipped(target) then
+            doer:DoTaskInTime(0.2, function(inst)
+                if target.replica.container then
+                    target.replica.container:Open(doer)
+                end
+            end)
         end
 
         target.components.container:GiveItem(item)
