@@ -1,16 +1,6 @@
 local ENV = env
 GLOBAL.setfenv(1, GLOBAL)
 
-local function InitContainer(inst)
-    inst:AddTag("nogemsocket")
-
-    if not TheWorld.ismastersim then return end
-
-    inst:AddComponent("container")
-    inst.components.container:WidgetSetup("nightsword")
-    inst.components.container.canbeopened = false
-end
-
 local NIGHTSWORDGEM = Action({ mount_valid = true, priority = 2 })
 
 NIGHTSWORDGEM.id = "NIGHTSWORDGEM"
@@ -23,13 +13,12 @@ NIGHTSWORDGEM.fn = function(act)
 
         target:InitContainer()
 
-        doer:DoTaskInTime(0.2, function(inst)
-			if doer.components.inventory:IsItemEquipped(target) then
-		        if target.replica.container then
-   		            target.replica.container:Open(doer)
-   		        end
-        	end
-        end)
+        if doer.components.inventory:IsItemEquipped(target) then
+            if target.components.container then
+                target.components.container:Open(doer)
+                target.add_container_event:push()
+            end
+        end
 
         target.components.container:GiveItem(item)
 
@@ -59,6 +48,34 @@ ENV.AddComponentAction("INVENTORY", "nightgem", function(inst, doer, actions, ri
     end
 end)
 
+local function InitContainer(inst)
+    inst:AddTag("nogemsocket")
+    inst:AddComponent("container")
+    inst.components.container:WidgetSetup("nightsword")
+    inst.components.container.canbeopened = false
+end
+
+local function on_add_container(inst)
+    if not inst:HasTag("_container") then
+        inst:AddTag("_container")
+    end
+    local container = inst.replica.container
+    if container ~= nil then
+        if container.classified == nil and inst.container_classified ~= nil then
+            container.classified = inst.container_classified
+            inst.container_classified.OnRemoveEntity = nil
+            inst.container_classified = nil
+            container:AttachClassified(container.classified)
+        end
+        if container.opener == nil and inst.container_opener ~= nil then
+            container.opener = inst.container_opener
+            inst.container_opener.OnRemoveEntity = nil
+            inst.container_opener = nil
+            container:AttachOpener(container.opener)
+        end
+    end
+end
+
 local function onequipfn(inst, data)
     if inst.components.container then
         inst.components.container:Open(data.owner)
@@ -77,18 +94,18 @@ local function onitemget(inst, data)
         inst.remove_container_task = nil
     end
     if data.item.prefab == "darkgem" then
-        inst.components.weapon:SetDamage(76.5)
+        inst.components.weapon:SetDamage(TUNING.NIGHTSWORD_DAMAGE * 1.125)
         inst.components.weapon.attackwearmultipliers:SetModifier("nightgem", 1.25)
         inst.components.equippable.dapperness = TUNING.CRAZINESS_MED * 1.5
     elseif data.item.prefab == "lightgem" then
-        inst.components.weapon:SetDamage(68)
+        inst.components.weapon:SetDamage(TUNING.NIGHTSWORD_DAMAGE)
         inst.components.weapon.attackwearmultipliers:SetModifier("nightgem", 0.8)
         inst.components.equippable.dapperness = 0
     end
 end
 
 local function onitemlose(inst)
-    inst.components.weapon:SetDamage(68)
+    inst.components.weapon:SetDamage(TUNING.NIGHTSWORD_DAMAGE)
     inst.components.weapon.attackwearmultipliers:RemoveModifier("nightgem")
     inst.components.equippable.dapperness = TUNING.CRAZINESS_MED
     if inst.remove_container_task ~= nil then
@@ -106,7 +123,18 @@ local function onitemlose(inst)
 end
 
 ENV.AddPrefabPostInit("nightsword", function(inst)
-    if not TheWorld.ismastersim then return end
+
+    inst.add_container_event = net_event(inst.GUID, "add_container")
+    inst:AddTag("__container")
+
+    if not TheWorld.ismastersim then
+        inst:ListenForEvent("add_container", on_add_container)
+        return
+    end
+
+    inst:RemoveTag("__container")
+    inst:PrereplicateComponent("container")
+    inst.InitContainer = InitContainer
 
     local onfinished = inst.components.finiteuses.onfinished or function() end
     inst.components.finiteuses:SetOnFinished(function(inst, ...)
@@ -149,8 +177,6 @@ ENV.AddPrefabPostInit("nightsword", function(inst)
         return onfinished(inst, ...)
     end)
 
-    inst.InitContainer = InitContainer
-
     inst:ListenForEvent("equipped", onequipfn)
     inst:ListenForEvent("unequipped", onunequipfn)
 
@@ -173,4 +199,5 @@ ENV.AddPrefabPostInit("nightsword", function(inst)
         end
         return on_preload(inst, data, ...)
     end
+
 end)
