@@ -514,7 +514,7 @@ local function common_fn(is_green)
             end
         end)
     end
-    if TUNING.GEARPLAN ~= 1 then inst:DoTaskInTime(0, toberemoved) end
+    -- if TUNING.GEARPLAN ~= 1 then inst:DoTaskInTime(0, toberemoved) end
 
     return inst
 end

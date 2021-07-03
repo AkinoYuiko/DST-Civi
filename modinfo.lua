@@ -1,11 +1,13 @@
-version = "6.0.RC1"
+version = "6.0"
 -- basic info --
 name = locale == "zh" and "光暗魔法使" or "Civi"
 author = locale == "zh" and "丁香女子学校" or "Civi, Potter_Lee, kengyou_lei"
 description = locale == "zh" and "[版本: "..version..[[]
 
 更新内容: 
-- 抛弃旧版武器方案
+- 去除MOD选项
+- 移除道具：黑莲、光之莲、暗之莲
+- 影背包现在不再能够插入黑宝石和白宝石
 - 影刀现在可以插入黑宝石和白宝石了
 
 * 通过吃黑/白宝石升/降级. 
@@ -14,8 +16,10 @@ description = locale == "zh" and "[版本: "..version..[[]
 ]] or "[Version: "..version..[[]
 
 Changelog: 
-- Remove old weapon plans.
-- Dark Sword can socket dark/light gems now.
+- Remove mod configurations.
+- Remove Black Lotus, Dark Lotus and Light Lotus.
+- Night Backpack can no longer socket Dark/Light Gems.
+- Dark Sword can socket Dark/Light Gems now.
 
 * Upgrades/Degrades by eating Dark/Light Gems.
 
@@ -45,23 +49,4 @@ if not folder_name:find("workshop-") then
 	name = name .. " - DEV"
 end
 
-configuration_options =
-{
-	{
-		name = "GEARPLAN",
-		label = (locale == "zh" and "选择装备方案" or "Specify gear plan"),
-		hover = "",
-		options = {
-			{description = (locale == "zh" and "背包" or "Night Backpack"),
-			 hover = (locale == "zh" and "启用【影背包】" or "Enable Night Backpack."),
-			 data = 1
-			},
-			{description = (locale == "zh" and "护符" or "Amulets"),
-			 hover = (locale == "zh" and "启用【黑暗护符】和【光明护符】" or "Enable Dark Amulet and Light Amulet."),
-			 data = 2
-			},
-			-- {description = "Off", data = 0, hover = "Disable gears."},
-		},
-		default = 1,
-	}
-}
+configuration_options = {}

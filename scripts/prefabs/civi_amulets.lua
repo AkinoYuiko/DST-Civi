@@ -88,7 +88,7 @@ local function fn_dark()
     -- inst.components.inventoryitem.imagename = "darkamulet"
     -- inst.components.inventoryitem.atlasname = resolvefilepath("images/inventoryimages/civi_amulets.xml")
 
-    if TUNING.GEARPLAN ~= 2 then inst:DoTaskInTime(0, inst.Remove) end
+    -- if TUNING.GEARPLAN ~= 2 then inst:DoTaskInTime(0, inst.Remove) end
 
     return inst
 end
@@ -135,7 +135,7 @@ local function fn_light()
 
     inst:AddComponent("inventoryitem")
 
-    if TUNING.GEARPLAN ~= 2 then inst:DoTaskInTime(0, inst.Remove) end
+    -- if TUNING.GEARPLAN ~= 2 then inst:DoTaskInTime(0, inst.Remove) end
 
     return inst
 end

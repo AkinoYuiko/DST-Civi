@@ -155,11 +155,9 @@ local function fn()
 
     inst.OnRemoveEntity = onremove
 
-    if TUNING.WEAPONPLAN ~= 1 then
-        inst:DoTaskInTime(0, function(inst)
-            inst.components.halloweenmoonmutable:Mutate("nightsword")
-        end)
-    end
+    inst:DoTaskInTime(0, function(inst)
+        inst.components.halloweenmoonmutable:Mutate("nightsword")
+    end)
 
     return inst
 end

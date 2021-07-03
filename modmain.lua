@@ -14,15 +14,16 @@ GlassicAPI.InitMinimapAtlas("civi_minimap", Assets)
 GlassicAPI.RegisterItemAtlas("civi_inventoryimages", Assets)
 
 local main_files = {
+    "tuning",
+    "strings",
+
+    "gem_nightsword",
     "gem_socket",
-    "lotus_switch",
     "night_switch",
     "prefabskin",
     "recipes",
-    "refuel_sword",
     "sanity_calc_rework",
-    "strings",
-    "tuning",
+    "widgets",
 }
 
 for _, v in ipairs(main_files) do

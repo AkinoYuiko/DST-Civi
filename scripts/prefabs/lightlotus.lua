@@ -31,13 +31,13 @@ end
 local function onfinished(inst)
     local owner = inst.components.inventoryitem.owner or nil
     if owner ~= nil and owner.prefab == "civi" and owner.components.inventory then
-        local _i = owner.components.inventory
-        if inst.prefab == "darklotus" and _i:Has("darkgem",1) then
-            _i:ConsumeByName("darkgem",1)
+        local inv = owner.components.inventory
+        if inst.prefab == "darklotus" and inv:Has("darkgem",1) then
+            inv:ConsumeByName("darkgem",1)
             inst.components.finiteuses:SetPercent(1)
             SpawnPrefab("pandorachest_reset").entity:SetParent(owner.entity)
-        elseif inst.prefab == "lightlotus" and _i:Has("lightgem",1) then
-            _i:ConsumeByName("lightgem",1)
+        elseif inst.prefab == "lightlotus" and inv:Has("lightgem",1) then
+            inv:ConsumeByName("lightgem",1)
             inst.components.finiteuses:SetPercent(1)
             SpawnPrefab("pandorachest_reset").entity:SetParent(owner.entity)
         else
@@ -116,11 +116,9 @@ local function darkfn()
 
     inst.OnRemoveEntity = onremove
 
-    if TUNING.WEAPONPLAN ~= 2 then
-        inst:DoTaskInTime(0, function(inst)
-            inst.components.halloweenmoonmutable:Mutate("blacklotus")
-        end)
-    end
+    inst:DoTaskInTime(0, function(inst)
+        inst.components.halloweenmoonmutable:Mutate("nightsword")
+    end)
 
     return inst
 end
@@ -173,11 +171,9 @@ local function lightfn()
 
     MakeHauntableLaunch(inst)
 
-    if TUNING.WEAPONPLAN ~= 2 then
-        inst:DoTaskInTime(0, function(inst)
-            inst.components.halloweenmoonmutable:Mutate("blacklotus")
-        end)
-    end
+    inst:DoTaskInTime(0, function(inst)
+        inst.components.halloweenmoonmutable:Mutate("nightsword")
+    end)
 
     return inst
 end

@@ -4,7 +4,7 @@ local ActionHandler = GLOBAL.ActionHandler
 local STRINGS = GLOBAL.STRINGS
 local TUNING = GLOBAL.TUNING
 
-local NIGHTSWITCH = Action({mount_valid=true})
+local NIGHTSWITCH = Action({mount_valid=true, priority = 1})
 
 NIGHTSWITCH.id = "NIGHTSWITCH"
 

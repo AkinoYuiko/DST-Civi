@@ -19,6 +19,9 @@ local function buildgem(colour)
 
 	    inst:AddTag("molebait")
 	    inst:AddTag("quakedebris")
+		
+		inst:AddTag("civigem")
+		inst:AddTag("reloaditem_ammo")
 
 	    MakeInventoryFloatable(inst, "small", 0.10, 0.80)
 
@@ -35,9 +38,10 @@ local function buildgem(colour)
 	    inst:AddComponent("inventoryitem")
 
 		inst:AddComponent("inspectable")
-	    inst:AddComponent("nightgem")
+
 	    inst:AddComponent("nightswitch")
 
+		inst:AddComponent("nightgem")
 		return inst
 	end
 
