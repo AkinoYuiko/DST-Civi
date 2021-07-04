@@ -1,10 +1,12 @@
-version = "6.1."
+version = "6.1.2"
 -- basic info --
 name = locale == "zh" and "光暗魔法使" or "Civi"
 author = locale == "zh" and "丁香女子学校" or "Civi, Potter_Lee, kengyou_lei"
 description = locale == "zh" and "[版本: "..version..[[]
 
 更新内容: 
+- 修复保存时的一个小问题.
+
 - 去除MOD选项
 - 移除道具：黑莲、光之莲、暗之莲
 - 影背包现在不再能够插入黑宝石和白宝石
@@ -16,6 +18,8 @@ description = locale == "zh" and "[版本: "..version..[[]
 ]] or "[Version: "..version..[[]
 
 Changelog: 
+- Fix an issue on save.
+
 - Remove mod configurations.
 - Remove Black Lotus, Dark Lotus and Light Lotus.
 - Night Backpack can no longer socket Dark/Light Gems.
