@@ -145,28 +145,29 @@ ENV.AddPrefabPostInit("nightsword", function(inst)
             local item = container:RemoveItemBySlot(1)
             if item then
                 inst.components.finiteuses:SetPercent(1)
-                if owner and owner.prefab == "civi" then
+                if inv and owner.prefab == "civi" then
                     local gem = inv:FindItem(function(new_item) return new_item.prefab == item.prefab end)
                     if gem then
-                        -- local slot_widget
-                        --local slot = inv:GetItemSlot(gem)
-                        --local overflow = inv:GetOverflowContainer()
-                        --local controls = owner.HUD.controls
-                        --local slot_widget = slot and controls.inv.inv[slot] -- check inventory first
-                        --    or ( inv:GetActiveItem() == gem and controls.inv.hovertile ) -- else, check active item
-                        --    or ( overflow -- else, if backpack, check backpack
-                        --        and (
-                        --            controls.containers[overflow.inst] -- if backpack is side-display
-                        --            and controls.containers[overflow.inst].inv[overflow:GetItemSlot(gem)]
-                        --            or controls.inv.backpackinv[overflow:GetItemSlot(gem)]
-                        --        )
-                        --    )
+                        local slot_widget
+                        local controls = owner.HUD and owner.HUD.controls
+                        if controls then
+                            local overflow = inv:GetOverflowContainer()
+                            slot_widget = controls.inv.inv[inv:GetItemSlot(gem)] -- check inventory first
+                            or ( inv:GetActiveItem() == gem and controls.inv.hovertile ) -- else, check active item
+                            or ( overflow -- else, if backpack, check backpack
+                                and (
+                                    controls.containers[overflow.inst] -- if backpack is side-display
+                                    and controls.containers[overflow.inst].inv[overflow:GetItemSlot(gem)]
+                                    or controls.inv.backpackinv[overflow:GetItemSlot(gem)]
+                                )
+                            )
+                        end
                         local single_gem = inv:RemoveItem(gem)
                         if single_gem then
-                            --local pos = slot_widget
-                            --    and Vector3(TheSim:ProjectScreenPos(slot_widget:GetWorldPosition():Get()))
-                            --    or inst:GetPosition()
-                            container:GiveItem(single_gem, nil, inst:GetPosition())
+                            local pos = slot_widget
+                               and Vector3(TheSim:ProjectScreenPos(slot_widget:GetWorldPosition():Get()))
+                               or inst:GetPosition()
+                            container:GiveItem(single_gem, nil, pos)
                         end
                     end
                 end
@@ -188,7 +189,7 @@ ENV.AddPrefabPostInit("nightsword", function(inst)
 
     local on_save = inst.OnSave or function() end
     inst.OnSave = function(inst, data, ...)
-        data._iscontainer = inst.components.container and true
+        data._iscontainer = inst.remove_container_task == nil and inst.components.container and true
         return on_save(inst, data, ...)
     end
 
